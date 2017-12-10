@@ -6,3 +6,8 @@ console.log(b)
 console.log(a.a)
 console.log(a.a == b)
 console.log('--------------')
+if (module.hot) {
+    module.hot.accept(function () {
+        console.log('hotttttttttttttttttttt!')
+    })
+}
