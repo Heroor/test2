@@ -1,4 +1,5 @@
 <a href="#s">to 1111</a>  
+[to 111](#s)  
 111  
 111  
 111  
@@ -53,11 +54,11 @@
 111  
 111  
 111  
+<font id="s">111</font>  
+<span id="s">111</span>  
 111  
-<font id="s">111</font>
 111  
-111  
-<span name="d">qwe</span> 
+<span name="d">qwe</span>  
 111  
 111  
 111  
