@@ -47,4 +47,4 @@ execytionContext = {
 }
 ```
 
-##### 确定this的指向
+##### 确定 `this` 的指向
