@@ -60,7 +60,7 @@ execytionContext = {
 函数的调用有多种情况：
 1. **全局函数调用**
 
-在**全局作用域**中调用函数时，并没有对象在调用这个函数，`this` 默认会指向全局对象：
+在**全局作用域**中调用函数时，并没有对象在调用这个函数，`this` 本会是 `undefined`，但是会默认隐式指向**全局对象**：
 ```javascript
 function foo () {
   console.log(this)
@@ -68,7 +68,7 @@ function foo () {
 foo() // Window {...}
 ```
 
-而使用了 **严格模式 `"use strict"`** ，`this` 将会是被指定的值；如果未指定，它会是 `undefine`：
+而使用了 **严格模式 `"use strict"`** ，`this` 将会是被指定的值；如果未指定，它会是 **`undefine`**：
 ```javascript
 'use strict'
 function foo () {
