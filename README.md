@@ -133,17 +133,17 @@ execytionContext = {
     a(); // 3
     ```
     > 值得注意的都是，[`let` `const`](http://es6.ruanyifeng.com/#docs/let) 关键字有声明变量的过程，但是不会提升声明，在声明之前的区域都属于 **“暂时性死区”**，变量将不可访问，尝试访问会报错，这样更有利于规范的书写代码，避免产生不必要的错误：
-    > ```JavaScript
-      console.log(a); // 属于“暂时性死区”
-      let a;
-      // Uncaught ReferenceError: a is not defined
-    > ```
-    > 而且变量在声明过程中未初始化为 `undefined`：
-    > ```javascript
-      typeof a;
-      let a;
-      // Uncaught ReferenceError: a is not defined
-    > ```
+    ```JavaScript
+    console.log(a); // 属于“暂时性死区”
+    let a;
+    // Uncaught ReferenceError: a is not defined
+    ```
+    而且变量在声明过程中未初始化为 `undefined`：
+    ```javascript
+    typeof a;
+    let a;
+    // Uncaught ReferenceError: a is not defined
+    ```
 
 
 
@@ -175,15 +175,15 @@ js现为止只有全局作用域与函数作用域两种，不同作用域中的
     ```
 
     > 在[严格模式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode#Securing_JavaScript)下通过 `this` 传递给一个函数的值不会被强制转换为一个对象。对一个普通的函数来说，`this` 总会是一个对象：不管调用时 `this` 它本来就是一个对象；还是用布尔值，字符串或者数字调用函数时函数里面被封装成对象的 `this`；还是使用 `undefined` 或者 `null` 调用函数时this代表的全局对象（使用call, apply或者bind方法来指定一个确定的this）。这种自动转化为对象的过程不仅是一种性能上的损耗，同时在浏览器中暴露出全局对象也会成为安全隐患，因为全局对象提供了访问那些所谓安全的JavaScript环境必须限制的功能的途径。所以对于一个开启严格模式的函数，指定的 `this` 不再被封装为对象，而且如果没有指定 `this` 的话它值是 `undefined` ：
-    > ```javascript
+    ```javascript
     function fun() { return this; };
     console.log(fun()); // Window{...}
     console.log(fun.call(2)); // Number {2}
     console.log(fun.apply(null)); // Window {...}
     console.log(fun.call(undefined)); // Window {...}
     console.log(fun.bind(true)()); // Boolean {true}
-    > ```
-    > ```javascript
+    ```
+    ```javascript
     "use strict";
     function fun() { return this; };
     console.assert(fun() === undefined);
@@ -191,7 +191,7 @@ js现为止只有全局作用域与函数作用域两种，不同作用域中的
     console.assert(fun.apply(null) === null);
     console.assert(fun.call(undefined) === undefined);
     console.assert(fun.bind(true)() === true);
-    > ```
+    ```
 
 2. **对象方法调用**
 
