@@ -167,23 +167,23 @@ execytionContext = {
 
 3. **构造函数调用**
 
-    `new` 操作符将函数通过构造函数的形式调用，它会创建一个新对象来作为构造函数的实例，将构造函数中的 `this` 指向这个实例并隐式返这个实例：
-    ```javascript
-    function Animal (name) {
-      this.name = name  // this指向实例
-      this.color = "white"
-      // 隐式返回了实例
-    }
-    console.log(new Animal('cat'))  // 构造函数调用   {name: "cat", color: "white"}
-    Animal() // 函数调用
-    ```
+  `new` 操作符将函数通过构造函数的形式调用，它会创建一个新对象来作为构造函数的实例，将构造函数中的 `this` 指向这个实例并隐式返这个实例：
+  ```javascript
+  function Animal (name) {
+    this.name = name  // this指向实例
+    this.color = "white"
+    // 隐式返回了实例
+  }
+  console.log(new Animal('cat'))  // 构造函数调用   {name: "cat", color: "white"}
+  Animal() // 函数调用
+  ```
 
 4. **使用 `call` `apply` `bind` 调用**
 
-    `call` `apply` `bind` 属于函数自身的方法，用以改变 `this` 的指向，
+`call` `apply` `bind` 属于函数自身的方法，用以改变 `this` 的指向，
 
-    foo.call(undefined)
-    foo.call(null)
+foo.call(undefined)
+foo.call(null)
 
 5. **ES6中箭头函数的this**
 
