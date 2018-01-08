@@ -44,7 +44,7 @@
 
 2. **执行阶段**
 
-    执行代码
+    执行代码，进行变量赋值、流程控制、函数调用等操作
 
 
 执行上下文创建示意：
@@ -69,7 +69,7 @@ execytionContext = {
 
 ### 创建变量对象
 为了我们可以使用到当前上下文中声明的所有变量，在生成执行上下文时，js引擎会进行预解析，创建 **变量对象 `variable object`** 来保存所有信息。变量对象包括以下几个内容：
-1. 创建 **函数参数对象 `arguments object`**，检查参数的上下文，初始化参数的变量名和值
+1. 创建 **函数参数对象 `arguments object`**，检查参数的上下文，初始化参数的变量名和值，并将它们拷贝一份
     这里导致了参数中的变量会在 `var` `let` `const` `function` 等主动声明的变量之前被创建，值为参数传入了值，如果未传入参数，默认为 `undefined`：
     ```JavaScript
     function foo (arg) {
@@ -132,19 +132,68 @@ execytionContext = {
     var a = function () {log(3)};  // 这里的函数表达式是赋值操作，并不是函数声明，声明的只有变量a
     a(); // 3
     ```
-    > 值得注意的都是，[`let` `const`](http://es6.ruanyifeng.com/#docs/let) 关键字有声明变量的过程，但是不会提升声明，在声明之前的区域都属于 **“暂时性死区”**，变量将不可访问，尝试访问会报错，这样更有利于规范的书写代码，避免产生不必要的错误：
+    值得注意的都是，[`let` `const`](http://es6.ruanyifeng.com/#docs/let) 关键字有声明变量的过程，但是在声明之前的区域都属于 **“暂时性死区”**，变量将不可访问，尝试访问会报错，这样更有利于规范的书写代码，避免产生不必要的错误：
     ```JavaScript
     console.log(a); // 属于“暂时性死区”
     let a;
     // Uncaught ReferenceError: a is not defined
     ```
-    而且变量在声明过程中未初始化为 `undefined`：
     ```javascript
     typeof a;
     let a;
     // Uncaught ReferenceError: a is not defined
     ```
 
+下面这个例子解释了当一个函数被调用时，变量对象在上下文中的变化：
+```JavaScript
+function foo(a, b) {
+  var x = function () {};
+  var y = 2;
+  function f() {};
+};
+foo(1);
+
+// 变量对象的初始化：
+fooExecutionContext = {
+  scopeChain: { ... },
+  variableObject: {
+    arguments: {
+      0: 1,
+      length: 1,
+      // callee: ƒ foo(a, b),
+      // Symbol(Symbol.iterator): ƒ values(),
+      // __proto__: Object
+    },
+    a: 1,
+    b: undefined, // 未传入的参数不会被拷贝进arguments中
+    f: pointer to ƒ f()
+    x: undefined,
+    y: undefined
+  },
+  this: window
+}
+
+
+// 代码执行后变量对象的变化：
+fooExecutionContext = {
+  scopeChain: { ... },
+  variableObject: {
+    arguments: {
+      0: 1,
+      length: 1,
+      // callee: ƒ foo(a, b),
+      // Symbol(Symbol.iterator): ƒ values(),
+      // __proto__: Object
+    },
+    a: 1,
+    b: undefined, // 未传入的参数不会被拷贝进arguments中
+    f: pointer to ƒ f()
+    x: ƒ (),
+    y: 2
+  },
+  this: window
+}
+```
 
 
 ### this的指向
