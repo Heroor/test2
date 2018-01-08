@@ -289,10 +289,31 @@ js现为止只有全局作用域与函数作用域两种，不同作用域中的
 
 4. **使用 `call` `apply` `bind` 调用**
 
-    `call` `apply` `bind` 属于函数自身的方法，用以改变 `this` 的指向，
+    `call` `apply` `bind` 属于函数自身的方法，用以改变 `this` 的指向。
 
-    foo.call(undefined);
-    foo.call(null);
+    `call` 传入参数为：[(thisArg, arg1, arg2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call#%E8%AF%AD%E6%B3%95)，第一个参数为指定函数 `this` 的值，以后的参数都为调用函数时传入的参数
+
+    `apply` 传入的参数为：[(thisArg, [argsArray])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply#Syntax)，第一个参数为指定函数的 `this`，第二个参数是一个传入函数所有参数的类数组
+
+    `bind` 传入的参数为：[(thisArg[, arg1[, arg2[, ...]]])](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind#%E8%AF%AD%E6%B3%95)，第一个参数为绑定原函数 `this` 的指向，后面的参数是传入原函数的参数，在绑定的函数调用时传递过去，`bind` 函数返回一个基于原函数而绑定 `this` 和指定参数的函数拷贝
+
+    > `thisArg` 为在函数运行时指定的 `this` 值。需要注意的是，指定的 `this` 值并不一定是该函数执行时真正的 `this` 值，如果这个函数处于**非严格模式**下，则指定为 `null` 和 `undefined` 的 `this` 值会自动指向全局对象(浏览器中就是window对象)，同时值为原始值(数字，字符串，布尔值)的 `this` 会指向该原始值的自动包装对象。
+    ```JavaScript
+    function foo (a, b) {
+        console.log(a);
+        console.log(b);
+        console.log(this);
+    };
+    foo.call(undefined, 1, 2); // 1  2  Window {...}
+    foo.apply(null, [1, 2]);      // 1  2  Window {...}
+    foo.call(2);         // Number {2}
+    foo.apply(true);         // Boolean {true}
+    ```
+
+    apply传入带有 `length` 属性的对象时，会被识别为类数组，可以利用这一点创建指定长度的数组，每一项都是 `undefnied`：
+    ```JavaScript
+    Array.apply(null, {length: 5});
+    ```
 
 5. **ES6中箭头函数的this**
 
