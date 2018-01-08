@@ -327,53 +327,53 @@ js现为止只有全局作用域与函数作用域两种，不同作用域中的
 
 5. **ES6中箭头函数的this**
 
-ES6中的[箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Syntax)语法，可以大大简化以往的函数表达式写法，不同的是，箭头函数作用域中没有绑定 `this`，它的 `this` 是继承自上一级的，而且箭头函数内是没有 `arguments` 的
-```JavaScript
-var arr = [1,2,3,4,5];
-var newArr = [];
+    ES6中的[箭头函数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions#Syntax)语法，可以大大简化以往的函数表达式写法，不同的是，箭头函数作用域中没有绑定 `this`，它的 `this` 是继承自上一级的，而且箭头函数内是没有 `arguments` 的
+    ```JavaScript
+    var arr = [1,2,3,4,5];
+    var newArr = [];
 
-newArr = arr.map(function (value) {
-  return value * 2;
-}); // [2, 4, 6, 8, 10]
+    newArr = arr.map(function (value) {
+      return value * 2;
+    }); // [2, 4, 6, 8, 10]
 
-newArr = arr.map((value) => {
-  return value * 2;
-}); // [2, 4, 6, 8, 10]
+    newArr = arr.map((value) => {
+      return value * 2;
+    }); // [2, 4, 6, 8, 10]
 
-newArr = arr.map(value => value * 2) // [2, 4, 6, 8, 10]
-```
-```javascript
-var val = 1;
-var obj = {
-  val: 2,
-  showVal() {
-    function getVal() {
-      return this.val;
+    newArr = arr.map(value => value * 2) // [2, 4, 6, 8, 10]
+    ```
+    ```javascript
+    var val = 1;
+    var obj = {
+      val: 2,
+      showVal() {
+        function getVal() {
+          return this.val;
+        };
+        console.log(getVal()); // 这里的getVal()其实是全局对象在调用
+        console.log(this.val);
+      }
     };
-    console.log(getVal()); // 这里的getVal()其实是全局对象在调用
-    console.log(this.val);
-  }
-};
 
-obj.showVal(); // 这儿的showVal()是obj在调用
-// 1
-// 2
-```
-```javascript
-var val = 1;
-var obj = {
-  val: 2,
-  showVal() {
-    var getVal = () => {
-      return this.val;
+    obj.showVal(); // 这儿的showVal()是obj在调用
+    // 1
+    // 2
+    ```
+    ```javascript
+    var val = 1;
+    var obj = {
+      val: 2,
+      showVal() {
+        var getVal = () => {
+          return this.val;
+        };
+        console.log(getVal()); // 这里的getVal()其实是全局对象在调用，但是this缺继承了上一级的this
+        console.log(this.val);
+      }
     };
-    console.log(getVal()); // 这里的getVal()其实是全局对象在调用，但是this缺继承了上一级的this
-    console.log(this.val);
-  }
-};
 
-obj.showVal(); // 这儿的showVal()是obj在调用
-// 2
-// 2
-```
+    obj.showVal(); // 这儿的showVal()是obj在调用
+    // 2
+    // 2
+    ```
 
