@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "node"
+install:
+  - echo 'hahaha'
+script:
+  - echo 'hohoho'
+  - echo 'git test - begin'
+  - echo '创建app文件'
+  - touch app.js
+  - echo 'git add'
+  - git add .
+  - echo 'git commit'
+  - git commit -m 'add app.js'
+  - echo 'git push'
+  - git push
+  - echo 'git test - end'
+
