@@ -10,7 +10,7 @@
   <h1>...</h1>
 </body>
   <script>
-    fetch('https://free-api.heweather.com/v5/weather?city=%E6%9D%AD%E5%B7%9E&key=e81c1a64d74b4faf8748e1485b7811b1')
-      .then(res => {document.write('杭州 今日：' + res.HeWeather5[0].now.cond.text)})
+      fetch('https://free-api.heweather.com/v5/weather?city=%E6%9D%AD%E5%B7%9E&key=e81c1a64d74b4faf8748e1485b7811b1').then(v => v.json())
+        .then(res => document.write('杭州 今日：' + res.HeWeather5[0].now.cond.txt || '还不是很清楚...'))
     </script>
 </html>
